@@ -170,6 +170,8 @@ export const MEMBERS_ONLY_CHANGED = 'conference.membersOnlyChanged';
  */
 export const MESSAGE_RECEIVED = 'conference.messageReceived';
 
+export const SYSTEM_MESSAGE_RECEIVED = 'conference.systemMessageReceived';
+
 /**
  * Event indicates that the current selected input device has no signal
  */

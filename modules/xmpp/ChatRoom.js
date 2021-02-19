@@ -1101,12 +1101,21 @@ export default class ChatRoom extends Listenable {
         }
 
         if (txt) {
-            if (type === 'chat') {
-                this.eventEmitter.emit(XMPPEvents.PRIVATE_MESSAGE_RECEIVED,
+            switch (type) {
+                case 'chat':
+                    this.eventEmitter.emit(XMPPEvents.PRIVATE_MESSAGE_RECEIVED,
                         from, nick, txt, this.myroomjid, stamp);
-            } else if (type === 'groupchat') {
-                this.eventEmitter.emit(XMPPEvents.MESSAGE_RECEIVED,
+                    break;
+                case 'groupchat':
+                    this.eventEmitter.emit(XMPPEvents.MESSAGE_RECEIVED,
                         from, nick, txt, this.myroomjid, stamp);
+                    break;
+                case 'systemchat':
+                    this.eventEmitter.emit(XMPPEvents.SYSTEM_MESSAGE_RECEIVED,
+                        from, nick, txt, this.myroomjid, stamp);
+                    break;
+                default:
+                    break;
             }
         }
     }

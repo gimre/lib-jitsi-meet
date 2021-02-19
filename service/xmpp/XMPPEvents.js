@@ -108,6 +108,8 @@ const XMPPEvents = {
     // received.
     MESSAGE_RECEIVED: 'xmpp.message_received',
 
+    SYSTEM_MESSAGE_RECEIVED: 'xmpp.system_message_received',
+
     // Designates an event indicating that an invite XMPP message in the MUC was
     // received.
     INVITE_MESSAGE_RECEIVED: 'xmpp.invite_message_received',
