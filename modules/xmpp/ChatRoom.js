@@ -302,14 +302,18 @@ export default class ChatRoom extends Listenable {
                     .length
                     === 1;
 
+            console.log('disco locked', locked, this.locked)
+
             if (locked !== this.locked) {
                 this.eventEmitter.emit(XMPPEvents.MUC_LOCK_CHANGED, locked);
                 this.locked = locked;
             }
 
-            const moderatedAudioEnabled = result.querySelector(
+            const moderatedAudioEnabled = $(result).find(
                 'query > x > field[var="muc#roomconfig_moderatedaudio-enable"]>value'
-            )?.innerHTML;
+            ).text();
+
+            console.log('disco query', moderatedAudioEnabled, result)
 
             if (moderatedAudioEnabled !== null) {
                 const value = Boolean(Number(moderatedAudioEnabled));
@@ -323,8 +327,8 @@ export default class ChatRoom extends Listenable {
             }
 
             const moderatedAudioExceptions = Array.from(
-                result.querySelectorAll('query > x > field[var="muc#roomconfig_moderatedaudio-exception-list"] > value')
-            ).map(n => n.innerHTML);
+                $(result).find('query > x > field[var="muc#roomconfig_moderatedaudio-exception-list"] > value')
+            ).toArray().map(n => n.innerHTML);
 
             if (!isEqual(moderatedAudioExceptions, this.moderatedAudioExceptions)) {
                 this.eventEmitter.emit(

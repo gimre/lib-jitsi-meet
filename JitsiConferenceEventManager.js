@@ -475,7 +475,10 @@ JitsiConferenceEventManager.prototype.setupChatRoomListeners = function() {
 
     chatRoom.addListener(
         XMPPEvents.MUC_MODERATED_AUDIO_CHANGED,
-        conferenceEmit(JitsiConferenceEvents.MODERATED_AUDIO_CHANGED)
+        value => {
+            console.log('moderated-audio changed', value);
+            conferenceEmit(JitsiConferenceEvents.MODERATED_AUDIO_CHANGED)(value)
+        }
     );
 
     chatRoom.addListener(XMPPEvents.MUC_MODERATED_AUDIO_EXCEPTIONS_CHANGED, (
